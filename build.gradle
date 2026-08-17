@@ -44,6 +44,7 @@ test {
 }
 
 shadowJar {
+    archiveFileName.set('AegisAuth-1.0.0.jar')
     archiveClassifier.set('')
     relocate 'de.mkammerer.argon2', 'com.authsystem.plugin.libs.argon2'
     relocate 'com.zaxxer.hikari', 'com.authsystem.plugin.libs.hikari'
