@@ -1,0 +1,61 @@
+# AegisAuth - Modern, Enterprise-Grade Authentication Plugin for Paper 1.21+
+
+**AegisAuth** is an advanced, high-performance authentication solution built from the ground up for modern Paper and Purpur 1.21+ servers. Designed with enterprise-grade security and developer precision, AegisAuth protects your server against unauthorized access, password guessing, and brute-force attacks while delivering a smooth, premium player experience.
+
+---
+
+## Key Features
+
+### Enterprise-Grade Argon2id Security
+Unlike legacy authentication plugins that rely on outdated hashing algorithms, AegisAuth utilizes **Argon2id** password hashing with customizable memory, iteration, and parallelism parameters to ensure maximum protection against rainbow table and GPU-accelerated brute-force attacks.
+
+### Dual Database Architecture (SQLite & MySQL)
+- **SQLite**: Standalone file-based database for quick, zero-config single-server setups.
+- **MySQL / MariaDB**: High-concurrency database support utilizing **HikariCP** connection pooling for network deployments.
+
+### Strict Brute-Force & Lockout Protection
+- **Immediate Disconnection**: Players are kicked instantly upon entering an incorrect password.
+- **Automatic 1-Hour IP Lockout**: 5 consecutive failed login attempts automatically trigger a 60-minute IP ban, preventing automated password guessing.
+- **Pre-Login Rejection**: Banned IP addresses are rejected at the async pre-login network phase before consuming server CPU resources.
+
+### Mojang Premium Auto-Login Mode
+Allows official Minecraft Java players to bypass password entry safely:
+1. Players register their account first using `/register`.
+2. Running `/premium` verifies the username directly against official **Mojang/Microsoft** authentication APIs.
+3. After confirming via `/premiumconfirm` within 60 seconds, verified Premium players are logged in automatically on future joins without requiring a password.
+
+### Global Multi-Language System (`/language`)
+Administrators can dynamically switch the server's global display language between **English** and **Vietnamese** using `/language <vietnamese|english>` (or `/lang <vi|en>`). All messages, titles, actionbars, and prompts are 1-to-1 synchronized in `config.yml`.
+
+### Clean UI & Adventure MiniMessage API
+Built using the **Kyori Adventure API** and MiniMessage formatting, supporting modern RGB hex colors and smooth gradients. Features automatic display cleanup (`clearDisplay`) to immediately erase lingering actionbars or title screens upon successful login.
+
+---
+
+## Commands & Permissions
+
+### Player Commands
+
+| Command | Aliases | Permission | Default | Description |
+| --- | --- | --- | --- | --- |
+| `/register <password> <confirmPassword>` | `/reg` | `auth.player.register` | True | Registers a new player account |
+| `/login <password>` | `/l`, `/log` | `auth.player.login` | True | Authenticates an existing account |
+| `/changepassword <oldPassword> <newPassword>` | `/changepass` | `auth.player.changepassword` | True | Changes account password |
+| `/premium` | None | `auth.player.premium` | True | Initiates Premium auto-login activation |
+| `/premiumconfirm` | None | `auth.player.premium` | True | Confirms Premium auto-login activation |
+
+### Admin Commands
+
+| Command | Aliases | Permission | Default | Description |
+| --- | --- | --- | --- | --- |
+| `/language <vietnamese\|english>` | `/lang` | `auth.admin.language` | OP | Switches global system language across the server |
+| `/unregister <player>` | None | `auth.admin.unregister` | OP | Deletes account from database (Target must be offline) |
+| `/unpremium <player>` | None | `auth.admin.unpremium` | OP | Disables Premium mode for a player |
+| `/authadmin <reload\|unregister> [player]` | None | `auth.admin.manage` | OP | Administrative control for reloading or unregistering |
+
+---
+
+## System Requirements
+
+- **Minecraft Server**: Paper, Purpur, or Spigot 1.21+
+- **Java Version**: Java 21 or higher

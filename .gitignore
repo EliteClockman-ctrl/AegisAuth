@@ -1,0 +1,33 @@
+# Gradle temporary files
+.gradle/
+build/
+gradle-dist/
+
+# Operating System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE and Editor files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# Databases and Local Configurations
+*.db
+*.log
+local.properties
+
+# Compiled Output
+*.class
+*.jar
+*.war
+*.zip
+*.tar.gz

@@ -1,0 +1,74 @@
+name: AegisAuth
+version: '${version}'
+main: com.authsystem.plugin.AuthPlugin
+api-version: '1.21'
+author: Antigravity Team
+description: Enterprise-grade Authentication plugin for Paper 1.21
+
+commands:
+  register:
+    description: Đăng ký tài khoản mật khẩu
+    aliases: [reg]
+    permission: auth.player.register
+    usage: /<command> <password> <confirmPassword>
+  login:
+    description: Đăng nhập vào hệ thống
+    aliases: [l, log]
+    permission: auth.player.login
+    usage: /<command> <password>
+  changepassword:
+    description: Đổi mật khẩu tài khoản
+    aliases: [changepass]
+    permission: auth.player.changepassword
+    usage: /<command> <oldPassword> <newPassword>
+  premium:
+    description: Bắt đầu quy trình kích hoạt chế độ Premium
+    permission: auth.player.premium
+    usage: /<command>
+  premiumconfirm:
+    description: Xác nhận kích hoạt chế độ Premium Auto-login
+    permission: auth.player.premium
+    usage: /<command>
+  unregister:
+    description: Xóa tài khoản người chơi khỏi hệ thống
+    permission: auth.admin.unregister
+    usage: /<command> <player>
+  unpremium:
+    description: Hủy chế độ Premium của người chơi
+    permission: auth.admin.unpremium
+    usage: /<command> <player>
+  language:
+    description: Thay đổi ngôn ngữ hiển thị hệ thống (Vietnamese / English)
+    aliases: [lang]
+    permission: auth.admin.language
+    usage: /<command> <vietnamese|english>
+  authadmin:
+    description: Quản trị hệ thống Authentication
+    permission: auth.admin.manage
+    usage: /<command> <reload|unregister> [player]
+
+permissions:
+  auth.player.register:
+    description: Quyền đăng ký tài khoản
+    default: true
+  auth.player.login:
+    description: Quyền đăng nhập tài khoản
+    default: true
+  auth.player.changepassword:
+    description: Quyền đổi mật khẩu
+    default: true
+  auth.player.premium:
+    description: Quyền kích hoạt và xác nhận Premium
+    default: true
+  auth.admin.language:
+    description: Quyền thay đổi ngôn ngữ hệ thống cho Admin
+    default: op
+  auth.admin.unregister:
+    description: Quyền xóa tài khoản người chơi khỏi hệ thống
+    default: op
+  auth.admin.unpremium:
+    description: Quyền hủy chế độ Premium của người chơi
+    default: op
+  auth.admin.manage:
+    description: Quyền quản trị reload và unregister tài khoản
+    default: op
