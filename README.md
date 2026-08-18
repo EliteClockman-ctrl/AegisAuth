@@ -1,5 +1,4 @@
-
-<img width="1914" height="822" alt="Codex Image Aug 17, 2026, 10_20_18 PM" src="https://github.com/user-attachments/assets/7900f1a0-ca93-4a4c-a780-964ee47b6485" />
+<img src="https://i.postimg.cc/1XC31rVJ/banner.png" alt="Banner" />
 
 # Description
 
