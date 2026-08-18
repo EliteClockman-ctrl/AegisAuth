@@ -43,6 +43,10 @@ test {
     executable = 'D:/bin/java.exe'
 }
 
+jar {
+    enabled = false
+}
+
 shadowJar {
     archiveFileName.set('AegisAuth-1.0.0.jar')
     archiveClassifier.set('')
