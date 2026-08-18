@@ -1,7 +1,7 @@
 
 <img width="1914" height="822" alt="Codex Image Aug 17, 2026, 10_20_18 PM" src="https://github.com/user-attachments/assets/7900f1a0-ca93-4a4c-a780-964ee47b6485" />
 
-# AegisAuth - Enterprise Authentication System for Paper 1.21
+# Description
 
 AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper and Purpur 1.21+ servers.
 
