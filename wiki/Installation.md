@@ -1,55 +1,42 @@
-# AegisAuth Wiki - Installation
+# AegisAuth Wiki - Installation Guide
 
-Setting up AegisAuth on your server is quick and simple.
+Follow this guide to install, configure, and verify AegisAuth on your server.
 
 ---
 
 ## 1. System Requirements
 
-Ensure your hosting environment meets the following conditions:
-- Server Software: Paper, Purpur, or Spigot (version 1.21 or higher).
-- Java Environment: JDK 21 or higher (older Java runtimes will fail to load the class files).
+Before downloading, check if your host meets these specifications:
+- **Server Platform**: Paper, Purpur, or Spigot (1.21 or higher).
+- **Java Runtime**: JDK 21 or higher.
+- **Memory**: At least 100MB of free heap memory for Argon2id hashing.
 
 ---
 
-## 2. Basic Installation Step-by-Step
+## 2. Installation Steps
 
-1. Obtain the compiled AegisAuth-1.0.0.jar (either compile it yourself or download the release).
-2. Stop your Minecraft server.
-3. Place the AegisAuth-1.0.0.jar file into the server plugins directory:
-   /plugins
-4. Start the server. This will generate the config.yml file inside the /plugins/AegisAuth directory.
+Follow these instructions for a clean installation:
+
+1. **Download**: Download the `AegisAuth-1.0.0.jar` binary file.
+2. **Upload**: Place the JAR file into the `/plugins` directory of your server.
+3. **Start**: Start the server to generate the default configuration files.
+4. **Configure**: Open `/plugins/AegisAuth/config.yml` to set your preferences.
+5. **Reload**: Run `/authadmin reload` in the console to apply any changes.
 
 ---
 
-## 3. Database Configuration
+## 3. Database Selection Guide
 
-AegisAuth supports SQLite (default) and MySQL.
+AegisAuth supports SQLite and MySQL. Choose the database that fits your setup:
 
-### Setting up SQLite
-By default, the type is set to SQLITE:
-```yaml
-database:
-  type: "SQLITE"
-  sqlite:
-    file: "auth_database.db"
-```
-No external software is required. The database file will be created automatically in your plugins/AegisAuth directory.
+### SQLite (Single Server)
+- Best for standalone servers.
+- Requires no external software.
+- Fast, secure, and auto-generated locally.
 
-### Setting up MySQL
-If you are running a network of servers or want centralized storage:
-1. Open plugins/AegisAuth/config.yml.
-2. Edit database.type to MYSQL.
-3. Fill in your database connection credentials:
-```yaml
-database:
-  type: "MYSQL"
-  mysql:
-    host: "localhost"
-    port: 3306
-    database: "minecraft_auth"
-    username: "your_username"
-    password: "your_password"
-    use-ssl: false
-```
-4. Restart the server. AegisAuth will use HikariCP connection pool to establish asynchronous database connections.
+### MySQL (Centralized / BungeeCord / Velocity)
+- Best for multiple servers sharing player accounts.
+- Requires a running MySQL/MariaDB database server.
+
+> [!IMPORTANT]
+> When switching from SQLite to MySQL, player accounts will not be migrated automatically. You must manually copy the account rows or start fresh.

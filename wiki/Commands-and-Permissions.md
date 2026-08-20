@@ -1,65 +1,74 @@
 # AegisAuth Wiki - Commands and Permissions
 
-Below is the complete reference guide for all AegisAuth commands and their associated permissions.
+This reference guide details all command usages, aliases, syntax, and permission nodes for AegisAuth.
 
 ---
 
 ## Player Commands
 
-### /register <password> <confirmPassword>
-- Description: Registers a new account. Both passwords must match.
-- Alias: /reg
-- Permission: auth.player.register (Default: true)
-- Usage: In-game players only.
+These commands are available to standard players by default.
 
-### /login <password>
-- Description: Authenticates the player session.
-- Aliases: /l, /log
-- Permission: auth.player.login (Default: true)
-- Usage: In-game players only.
+### `/register`
+- **Syntax**: `/register <password> <confirmPassword>`
+- **Alias**: `/reg`
+- **Permission**: `auth.player.register` (Default: true)
+- **Description**: Registers a new password credentials block for the player.
+- **Constraints**: Can only be run in-game by unauthenticated users.
 
-### /changepassword <oldPassword> <newPassword>
-- Description: Changes the account password.
-- Alias: /changepass
-- Permission: auth.player.changepassword (Default: true)
-- Usage: In-game players only (must be logged in).
+### `/login`
+- **Syntax**: `/login <password>`
+- **Aliases**: `/l`, `/log`
+- **Permission**: `auth.player.login` (Default: true)
+- **Description**: Verifies password credentials and unlocks the player session.
 
-### /premium
-- Description: Initiates Mojang Premium auto-login activation.
-- Alias: None
-- Permission: auth.player.premium (Default: true)
-- Usage: In-game players only.
+### `/changepassword`
+- **Syntax**: `/changepassword <oldPassword> <newPassword>`
+- **Alias**: `/changepass`
+- **Permission**: `auth.player.changepassword` (Default: true)
+- **Description**: Updates the player's password.
+- **Constraints**: The player must be logged in. The new password cannot match the old password.
 
-### /premiumconfirm
-- Description: Confirms Premium auto-login activation. Must be run within 60 seconds of /premium.
-- Alias: None
-- Permission: auth.player.premium (Default: true)
-- Usage: In-game players only.
+### `/premium`
+- **Syntax**: `/premium`
+- **Permission**: `auth.player.premium` (Default: true)
+- **Description**: Requests activation of official Mojang Premium auto-login mode.
+
+### `/premiumconfirm`
+- **Syntax**: `/premiumconfirm`
+- **Permission**: `auth.player.premium` (Default: true)
+- **Description**: Finalizes Premium activation. Must be run within 60 seconds of `/premium`.
 
 ---
 
 ## Admin Commands
 
-### /language <vietnamese|english>
-- Description: Changes the global system language of the server.
-- Aliases: /lang
-- Permission: auth.admin.language (Default: OP)
+These commands are restricted to server operators and administrators.
 
-### /unregister <player>
-- Description: Deletes a player account from the database.
-- Alias: None
-- Permission: auth.admin.unregister (Default: OP)
-- Note: The target player must be offline to execute this command.
+> [!IMPORTANT]
+> Administrative commands should only be given to trusted staff.
 
-### /unpremium <player>
-- Description: Disables Premium auto-login mode for a target account.
-- Alias: None
-- Permission: auth.admin.unpremium (Default: OP)
+### `/language`
+- **Syntax**: `/language <vietnamese|english>`
+- **Alias**: `/lang`
+- **Permission**: `auth.admin.language` (Default: OP)
+- **Description**: Switches the entire plugin display language (chat messages, actionbars, titles) globally.
 
-### /authadmin <reload|unregister> [player]
-- Description: Reloads the plugin configuration or forces unregistration.
-- Alias: None
-- Permission: auth.admin.manage (Default: OP)
-- Subcommands:
-  - reload: Reloads all configuration settings.
-  - unregister <player>: Removes the player's account from the database. If they are online, they are kicked instantly.
+### `/unregister`
+- **Syntax**: `/unregister <player>`
+- **Permission**: `auth.admin.unregister` (Default: OP)
+- **Description**: Deletes a player account from the database.
+- **Constraints**: 
+  > [!WARNING]
+  > The target player must be offline for this command to execute successfully. To unregister an online player, use `/authadmin unregister <player>` instead.
+
+### `/unpremium`
+- **Syntax**: `/unpremium <player>`
+- **Permission**: `auth.admin.unpremium` (Default: OP)
+- **Description**: Force-disables Premium auto-login mode for the target player.
+
+### `/authadmin`
+- **Syntax**: `/authadmin <reload|unregister> [player]`
+- **Permission**: `auth.admin.manage` (Default: OP)
+- **Subcommands**:
+  - `reload`: Reloads all configurations from `config.yml`.
+  - `unregister <player>`: Deletes the target account and kicks the player instantly if they are currently online.

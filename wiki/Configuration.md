@@ -1,40 +1,73 @@
 # AegisAuth Wiki - Configuration
 
-AegisAuth is highly customizable. The config.yml file is divided into several main sections: general, database, security, session, rate-limiting, and timing.
+AegisAuth stores its configuration settings inside the `config.yml` file. This guide provides a detailed explanation of each block.
 
 ---
 
-## Complete Guide to config.yml
+## Complete config.yml Reference
 
-### General Settings
-- language: Sets the default global display language (e.g., "vi" for Vietnamese, "en" for English). Can be updated in-game using /language.
+Here is the default structure of the `config.yml` file:
 
-### Database Settings
-- type: Database type, choose either "SQLITE" or "MYSQL".
-- sqlite.file: Filename of the SQLite database (e.g., "auth_database.db").
-- mysql.host: MySQL host address.
-- mysql.port: MySQL port (default: 3306).
-- mysql.database: Name of the database.
-- mysql.username: MySQL username.
-- mysql.password: MySQL password.
-- mysql.use-ssl: Sets whether to use SSL connection encryption (default: false).
+```yaml
+# Global display language ("vi" for Vietnamese, "en" for English)
+language: "vi"
 
-### Security & Argon2 Settings
-- security.argon2.iterations: Computational complexity (number of passes over memory).
-- security.argon2.memory-kb: Memory cost in kilobytes (default: 65536 = 64MB).
-- security.argon2.parallelism: Number of parallel threads (default: 1).
-- security.password.min-length: Minimum password length (default: 6).
-- security.password.max-length: Maximum password length (default: 32).
+# Database Connection Settings
+database:
+  # Choose SQLITE for local file-based database or MYSQL for external DB
+  type: "SQLITE"
+  sqlite:
+    file: "auth_database.db"
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "minecraft_auth"
+    username: "root"
+    password: ""
+    use-ssl: false
 
-### Session Settings
-- session.enabled: Enables auto-login session restore on IP address match (default: true).
-- session.ttl-minutes: Duration of session validity in minutes (default: 720 minutes = 12 hours).
+# Security Parameters
+security:
+  # Argon2id Cryptographic Settings (Tweak for hardware performance)
+  argon2:
+    iterations: 3
+    memory-kb: 65536  # 64 MB
+    parallelism: 1
+  password:
+    min-length: 6
+    max-length: 32
 
-### Rate Limiting Settings
-- rate-limit.enabled: Enables brute-force protection (default: true).
-- rate-limit.max-failed-attempts: Maximum allowed login failures (default: 5).
-- rate-limit.lockout-duration-minutes: IP ban lockout time in minutes (default: 60 minutes = 1 hour).
+# Session Persistence Settings
+session:
+  enabled: true
+  ttl-minutes: 720    # 12 hours
 
-### Auth Timeout Settings
-- auth-timeout.seconds: Time allowed for players to log in or register before being kicked (default: 60 seconds).
-- auth-timeout.reminder-interval-seconds: Time interval between actionbar and title reminders (default: 10 seconds).
+# Brute-force Prevention Settings
+rate-limit:
+  enabled: true
+  max-failed-attempts: 5
+  lockout-duration-minutes: 60  # 1 hour
+
+# Timeout countdowns
+auth-timeout:
+  seconds: 60
+  reminder-interval-seconds: 10
+```
+
+---
+
+## Detailed Block Descriptions
+
+### 1. Database Block
+- **type**: Supported options are `SQLITE` and `MYSQL`.
+- **mysql.use-ssl**: Should be set to `true` if your MySQL provider requires encrypted connections.
+
+> [!WARNING]
+> If you are using MySQL, never share your `config.yml` file publicly as it contains plain-text credentials for your database.
+
+### 2. Argon2 Block
+Argon2id is memory-hard. Adjust these values depending on your server's available RAM:
+- **memory-kb**: High memory usage prevents CPU/GPU cracking, but allocating too much RAM (e.g. 512MB+) may cause JVM out-of-memory errors on cheap hostings. 64MB (65536 KB) is the recommended sweet spot.
+
+### 3. Session Block
+- **session.enabled**: If set to `true`, players who disconnect and reconnect within the TTL duration from the exact same IP address will be logged in automatically without prompting for a password.

@@ -1,21 +1,34 @@
-# AegisAuth Wiki - Welcome
+# AegisAuth - Welcome to the Wiki
 
-Welcome to the official AegisAuth Wiki.
-
-AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper and Purpur 1.21+ servers. It focuses on security, speed, and clean user experience.
+AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for modern Minecraft Paper and Purpur 1.21+ servers. 
 
 ---
 
-## Wiki Pages
+## Documentation Quick Links
 
-- Features: Detailed explanation of security and features.
-- Commands and Permissions: Reference list of all player and admin commands.
-- Configuration: Complete guide to setup and configure config.yml.
-- Installation: How to install AegisAuth and configure SQLite or MySQL databases.
-- Developers: Build instructions and technical architecture details.
+To get started with AegisAuth, select one of the following topics:
+
+### Getting Started
+- [Installation Guide](Installation): System requirements, plugin setup, and database initialization.
+- [Configuration Reference](Configuration): Line-by-line configuration parameters for config.yml.
+
+### Plugin Features
+- [Security Features](Features): Argon2id password hashing, brute-force IP lockout, and Mojang premium auto-login.
+- [Commands and Permissions Reference](Commands-and-Permissions): Commands for both players and administrators.
+
+### Developers
+- [Developers Guide](Developers): Compilation instructions, build tasks, and package architecture.
 
 ---
 
-## Core Security Statement
+## Why Choose AegisAuth?
 
-AegisAuth uses Argon2id for password hashing. Argon2id is the industry-standard algorithm recommended by the Open Web Application Security Project (OWASP) for modern password storage. It provides excellent resistance against GPU and ASIC brute-force attacks.
+> [!NOTE]
+> Most Minecraft authentication plugins still rely on obsolete algorithms like MD5 or SHA-256, which can be cracked in seconds using modern GPUs. AegisAuth brings industry-standard cryptographic practices to Minecraft.
+
+### Key Highlights
+- **Argon2id Cryptography**: High resistance against memory-hard GPU and ASIC attack vectors.
+- **Asynchronous Execution**: Every database transaction and cryptographic hash is computed off-thread to prevent server lag.
+- **Dynamic Lockout Firewall**: Auto-bans IPs at the pre-login stage after repeated failed login attempts.
+- **Premium Bypass**: Seamless automatic login for official Mojang/Microsoft account owners.
+- **Dynamic Language Swapper**: Swap the entire system language dynamically between English and Vietnamese.

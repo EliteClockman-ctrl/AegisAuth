@@ -1,50 +1,60 @@
-# AegisAuth Wiki - Features
+# AegisAuth Wiki - Security Features
 
-AegisAuth is built with a focus on enterprise-grade security and optimized performance. Below is a detailed breakdown of its core features.
-
----
-
-## 1. Argon2id Password Hashing
-
-Security is our top priority. AegisAuth does not use legacy, weak MD5 or SHA-256 algorithms. Instead, it utilizes Argon2id, which is the winner of the Password Hashing Competition (PHC) and is recommended by OWASP.
-- Configurable memory cost (default: 64MB).
-- Configurable iterations (default: 3).
-- Configurable parallelism (default: 1 thread).
-This ensures your player credentials remain secure even if the database is compromised.
+This page provides an in-depth explanation of the security mechanisms, cryptography, and rate-limiting features built into AegisAuth.
 
 ---
 
-## 2. Robust Brute-Force and Rate Limit Protection
+## Table of Contents
+1. [Argon2id Hashing Scheme](#1-argon2id-hashing-scheme)
+2. [Brute-Force Lockout Firewall](#2-brute-force-lockout-firewall)
+3. [Mojang Premium Auto-Login](#3-mojang-premium-auto-login)
+4. [Asynchronous Thread Management](#4-asynchronous-thread-management)
 
-To protect accounts against automated password guessing, AegisAuth features a built-in rate-limiting firewall:
-- Immediate Kick: If a player inputs a wrong password during login, they are disconnected from the server instantly. No login attempt messages are sent to the client to prevent in-game spam.
-- IP Lockout: After 5 failed password attempts, the player's IP address is locked for 60 minutes (1 hour).
-- Pre-Login Rejection: Locked IP addresses are rejected at the Async Player Pre-Login stage, preventing them from connecting to the server and conserving CPU resources.
+---
+
+## 1. Argon2id Hashing Scheme
+
+AegisAuth implements the Argon2id hashing algorithm, the winner of the Password Hashing Competition (PHC) and the official recommendation of OWASP.
+
+### Hashing Algorithm Comparison
+
+| Feature | MD5 | SHA-256 | Argon2id (AegisAuth) |
+| --- | --- | --- | --- |
+| **GPU Crack Resistance** | None (Extremely Weak) | Poor | Excellent (Memory-Hard) |
+| **ASIC Crack Resistance** | None (Extremely Weak) | Poor | Excellent (Memory-Hard) |
+| **Salt Type** | None or Static | Per-user | Custom generated per password |
+| **Configurability** | None | None | Iterations, Memory Cost, Parallelism |
+
+### Cryptographic Configuration Parameters
+- **Memory Cost**: Memory size allocated during computation (default: 64MB). This blocks GPU-based dictionary attacks because GPUs have limited memory cache per thread.
+- **Time Cost (Iterations)**: Number of computation passes (default: 3).
+- **Parallelism**: Number of parallel CPU threads utilized during execution (default: 1).
+
+---
+
+## 2. Brute-Force Lockout Firewall
+
+To defend against online dictionary attacks, AegisAuth contains a built-in rate-limiting firewall.
+
+> [!WARNING]
+> By default, AegisAuth uses a strict immediate kick policy to prevent in-game bot spam and screen freezing.
+
+### How the Lockout Works
+1. **Wrong Password Entry**: If a player enters an incorrect password during `/login`, they are immediately disconnected from the server with the `LOGIN_WRONG_PASSWORD` kick message.
+2. **Attempt Tracker**: Failed attempts per IP are cached using Caffeine.
+3. **Lockout Trigger**: Upon reaching the 5th failed attempt, the IP address is banned from connecting to the server for 60 minutes (1 hour).
+4. **Pre-Login Defense**: Reconnection attempts from a banned IP are blocked at the `AsyncPlayerPreLoginEvent` stage, saving valuable CPU cycles.
 
 ---
 
 ## 3. Mojang Premium Auto-Login
 
-For servers running in offline mode, AegisAuth offers a secure Mojang Premium integration:
-- Initial Registration Required: All players must register their account first.
-- Verification: Players can run /premium, which queries the official Mojang API to verify if the account is authentic.
-- Confirmation: A /premiumconfirm command must be executed within 60 seconds to prevent accidental lockouts.
-- Password Bypass: Once activated, Premium players bypass password prompts and are logged in automatically.
-- Deactivation: Admins can use /unpremium <player> to disable Premium status.
+> [!IMPORTANT]
+> To prevent malicious players from stealing premium usernames, AegisAuth requires players to register their accounts manually before enabling Premium status.
 
----
-
-## 4. Multi-Language System
-
-Administrators can switch the global server language dynamically:
-- Switch globally via /language <vietnamese|english> (or /lang <vi|en>).
-- Supports 1-to-1 language structure in config.yml.
-- Translates all plugin prompts, actionbar countdowns, and titles instantly.
-
----
-
-## 5. Optimized Performance
-
-- Fully Asynchronous: All database queries (SQLite/MySQL) and cryptographic operations run asynchronously to ensure the main server thread never freezes.
-- Adventure API: Built natively using the Adventure MiniMessage component system for modern RGB gradient styling.
-- Display Cleanup: Clears Actionbars and Titles instantly upon successful authentication to keep the player screen clean.
+### Premium Lifecycle Flow
+1. **Initial Registration**: The user registers via `/register <password> <confirm>`.
+2. **Premium Request**: The user runs `/premium`. The plugin queries Mojang's API to ensure the account username exists.
+3. **Interactive Confirmation**: The player must confirm by typing `/premiumconfirm` within 60 seconds.
+4. **Auto-Login**: On subsequent logins, the server recognizes the Mojang authentication session and logs the user in automatically, bypassing password prompts.
+5. **Recovery**: Administrators can run `/unpremium <player>` to disable the auto-login flag if a user changes their account type.
