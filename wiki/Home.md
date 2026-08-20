@@ -1,34 +1,25 @@
-# AegisAuth - Welcome to the Wiki
+# AegisAuth Wiki
 
-AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for modern Minecraft Paper and Purpur 1.21+ servers. 
+AegisAuth is a simple login and registration plugin for Minecraft Paper and Purpur 1.21+ servers. 
 
----
-
-## Documentation Quick Links
-
-To get started with AegisAuth, select one of the following topics:
-
-### Getting Started
-- [Installation Guide](Installation): System requirements, plugin setup, and database initialization.
-- [Configuration Reference](Configuration): Line-by-line configuration parameters for config.yml.
-
-### Plugin Features
-- [Security Features](Features): Argon2id password hashing, brute-force IP lockout, and Mojang premium auto-login.
-- [Commands and Permissions Reference](Commands-and-Permissions): Commands for both players and administrators.
-
-### Developers
-- [Developers Guide](Developers): Compilation instructions, build tasks, and package architecture.
+Unlike older authentication plugins that use weak hashing algorithms like MD5 or SHA-256, AegisAuth uses Argon2id to keep player passwords secure. Every database query and password check is run asynchronously, so it will not lag your main server thread.
 
 ---
 
-## Why Choose AegisAuth?
+## Navigation
 
-> [!NOTE]
-> Most Minecraft authentication plugins still rely on obsolete algorithms like MD5 or SHA-256, which can be cracked in seconds using modern GPUs. AegisAuth brings industry-standard cryptographic practices to Minecraft.
+- [Features](Features): Why we use Argon2id, how the rate-limiter works, and premium auto-login.
+- [Installation Guide](Installation): Setting up the plugin with SQLite or MySQL databases.
+- [Configuration](Configuration): Tuning config.yml settings.
+- [Commands and Permissions](Commands-and-Permissions): Commands for players and admins.
+- [Developers Guide](Developers): Building from source and codebase overview.
 
-### Key Highlights
-- **Argon2id Cryptography**: High resistance against memory-hard GPU and ASIC attack vectors.
-- **Asynchronous Execution**: Every database transaction and cryptographic hash is computed off-thread to prevent server lag.
-- **Dynamic Lockout Firewall**: Auto-bans IPs at the pre-login stage after repeated failed login attempts.
-- **Premium Bypass**: Seamless automatic login for official Mojang/Microsoft account owners.
-- **Dynamic Language Swapper**: Swap the entire system language dynamically between English and Vietnamese.
+---
+
+## Quick Overview
+
+- **Argon2id hashing**: Modern password encryption designed to stop GPU cracking.
+- **Async by default**: Database queries (SQLite/MySQL) run off-thread to prevent server TPS drops.
+- **IP Lockout**: Automatic 1-hour ban after 5 wrong password attempts. The check runs at pre-login to save server resources.
+- **Mojang Auto-Login**: Premium players can bypass password prompts safely.
+- **Bilingual**: Switch between English and Vietnamese dynamically.

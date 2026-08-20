@@ -1,60 +1,42 @@
-# AegisAuth Wiki - Security Features
+# Plugin Features
 
-This page provides an in-depth explanation of the security mechanisms, cryptography, and rate-limiting features built into AegisAuth.
-
----
-
-## Table of Contents
-1. [Argon2id Hashing Scheme](#1-argon2id-hashing-scheme)
-2. [Brute-Force Lockout Firewall](#2-brute-force-lockout-firewall)
-3. [Mojang Premium Auto-Login](#3-mojang-premium-auto-login)
-4. [Asynchronous Thread Management](#4-asynchronous-thread-management)
+Here is how the core features of AegisAuth work under the hood.
 
 ---
 
-## 1. Argon2id Hashing Scheme
+## 1. Why Argon2id?
 
-AegisAuth implements the Argon2id hashing algorithm, the winner of the Password Hashing Competition (PHC) and the official recommendation of OWASP.
+Most legacy auth plugins use MD5 or SHA-256. With modern hardware, hackers can calculate billions of these hashes per second. If someone steals your database, they can easily crack those passwords using standard graphics cards.
 
-### Hashing Algorithm Comparison
+Argon2id is a memory-hard hashing algorithm. It forces the system to use RAM and CPU time to calculate a single hash, making it extremely difficult and expensive for hackers to brute-force your passwords.
 
-| Feature | MD5 | SHA-256 | Argon2id (AegisAuth) |
-| --- | --- | --- | --- |
-| **GPU Crack Resistance** | None (Extremely Weak) | Poor | Excellent (Memory-Hard) |
-| **ASIC Crack Resistance** | None (Extremely Weak) | Poor | Excellent (Memory-Hard) |
-| **Salt Type** | None or Static | Per-user | Custom generated per password |
-| **Configurability** | None | None | Iterations, Memory Cost, Parallelism |
-
-### Cryptographic Configuration Parameters
-- **Memory Cost**: Memory size allocated during computation (default: 64MB). This blocks GPU-based dictionary attacks because GPUs have limited memory cache per thread.
-- **Time Cost (Iterations)**: Number of computation passes (default: 3).
-- **Parallelism**: Number of parallel CPU threads utilized during execution (default: 1).
+### Configuration Settings
+You can tweak these settings in config.yml:
+- **memory-kb**: The RAM allocated for hashing one password (default: 64MB). Do not set this too high if your server runs on a low-RAM host.
+- **iterations**: How many times the algorithm runs (default: 3). Higher values mean better security but take more CPU time.
+- **parallelism**: How many CPU threads to use (default: 1).
 
 ---
 
-## 2. Brute-Force Lockout Firewall
+## 2. Rate Limiting and Brute-Force Prevention
 
-To defend against online dictionary attacks, AegisAuth contains a built-in rate-limiting firewall.
-
-> [!WARNING]
-> By default, AegisAuth uses a strict immediate kick policy to prevent in-game bot spam and screen freezing.
-
-### How the Lockout Works
-1. **Wrong Password Entry**: If a player enters an incorrect password during `/login`, they are immediately disconnected from the server with the `LOGIN_WRONG_PASSWORD` kick message.
-2. **Attempt Tracker**: Failed attempts per IP are cached using Caffeine.
-3. **Lockout Trigger**: Upon reaching the 5th failed attempt, the IP address is banned from connecting to the server for 60 minutes (1 hour).
-4. **Pre-Login Defense**: Reconnection attempts from a banned IP are blocked at the `AsyncPlayerPreLoginEvent` stage, saving valuable CPU cycles.
+If someone is trying to guess a password:
+1. **Immediate Kick**: They get kicked instantly on their first wrong password attempt. No messages are sent to in-game chat to prevent bot spam.
+2. **Attempt Tracking**: We track failed attempts per IP address using Caffeine cache.
+3. **Lockout**: On the 5th failed attempt, the IP is banned for 60 minutes.
+4. **Pre-Login Check**: Banned IPs are blocked at the PlayerPreLogin stage. The server rejects them before they even join, saving CPU and bandwidth.
 
 ---
 
-## 3. Mojang Premium Auto-Login
+## 3. Premium Auto-Login
 
-> [!IMPORTANT]
-> To prevent malicious players from stealing premium usernames, AegisAuth requires players to register their accounts manually before enabling Premium status.
+This feature allows official Mojang account owners to join without entering passwords.
 
-### Premium Lifecycle Flow
-1. **Initial Registration**: The user registers via `/register <password> <confirm>`.
-2. **Premium Request**: The user runs `/premium`. The plugin queries Mojang's API to ensure the account username exists.
-3. **Interactive Confirmation**: The player must confirm by typing `/premiumconfirm` within 60 seconds.
-4. **Auto-Login**: On subsequent logins, the server recognizes the Mojang authentication session and logs the user in automatically, bypassing password prompts.
-5. **Recovery**: Administrators can run `/unpremium <player>` to disable the auto-login flag if a user changes their account type.
+### Setup Flow
+1. The player joins and registers their account normally.
+2. The player types `/premium`. The plugin checks Mojang APIs to make sure the username is registered.
+3. The player must confirm by typing `/premiumconfirm` within 60 seconds (this prevents accidental lockouts if they made a mistake).
+4. From the next login, they will bypass password screens entirely.
+
+> [!NOTE]
+> If a player changes their username or account status, admins can disable this using `/unpremium <player>`.

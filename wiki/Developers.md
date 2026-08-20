@@ -1,19 +1,14 @@
-# AegisAuth Wiki - Developers Guide
+# Developers Guide
 
-This guide is intended for developers who wish to compile, extend, or contribute to AegisAuth.
+Quick guide on how to build and understand the AegisAuth codebase.
 
 ---
 
-## 1. Prerequisites and Compilation
+## 1. How to Build
 
-To build AegisAuth, ensure you have:
-- Java JDK 21 installed.
-- Access to the command line.
+We use Gradle as the build tool. You need JDK 21 installed.
 
-### Compiling the Shaded JAR
-AegisAuth shades its dependencies (Argon2, HikariCP, Caffeine) to prevent conflict with other plugins.
-
-Run the build command:
+To build the plugin jar:
 ```bash
 # Windows
 .\gradlew clean build
@@ -22,31 +17,16 @@ Run the build command:
 ./gradlew clean build
 ```
 
-After a successful compilation, only the shaded fat-jar is outputted:
-`build/libs/AegisAuth-1.0.0.jar`
+This outputs a shaded jar at `build/libs/AegisAuth-1.0.0.jar`.
+
+> [!NOTE]
+> AegisAuth disables the default `jar` task and only outputs the `shadowJar` version. This shaded jar relocates external dependencies (HikariCP, Caffeine, Argon2) to prevent version conflicts with other plugins on your server.
 
 ---
 
-## 2. Technical Architecture
+## 2. Package Structure
 
-AegisAuth divides its logic into distinct modular packages:
-
-### Database & Asynchronous Operations
-All database queries are executed off-thread using Java's `CompletableFuture` API.
-- **HikariCP**: Manages connection pooling for MySQL.
-- **DAO Pattern**: Separate `AuthDao` (auth account storage) and `AuditDao` (admin auditing logs).
-
-### Relocated Dependencies
-To avoid classpath conflicts, the following libraries are shaded and relocated:
-- `de.mkammerer.argon2` -> `com.authsystem.plugin.libs.argon2`
-- `com.zaxxer.hikari` -> `com.authsystem.plugin.libs.hikari`
-- `com.github.benmanes.caffeine` -> `com.authsystem.plugin.libs.caffeine`
-
----
-
-## 3. Contributing
-
-We accept pull requests on GitHub. Please ensure that:
-1. Any database changes include migrations or fail-safes.
-2. All unit tests (`.\gradlew test`) pass successfully before submitting code.
-3. No external dependencies are added without relocation shadowing.
+- **com.authsystem.plugin**: Entry point class (`AuthPlugin.java`). Sets up listeners, command executors, and database tables.
+- **com.authsystem.plugin.security**: Core logic for Argon2id hashing, rate limiting attempts cache (Caffeine), and session IPs.
+- **com.authsystem.plugin.database**: Handles SQL operations. All tasks are run asynchronously via `CompletableFuture` API to prevent main thread blocking.
+- **com.authsystem.plugin.listener**: Rejects connections from locked IPs (`PlayerPreLoginListener`), controls restrictions for unlogged players (`PlayerRestrictionListener`), and handles auto-logins (`PlayerJoinQuitListener`).

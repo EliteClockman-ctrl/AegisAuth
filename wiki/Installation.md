@@ -1,42 +1,35 @@
-# AegisAuth Wiki - Installation Guide
+# Installation Guide
 
-Follow this guide to install, configure, and verify AegisAuth on your server.
-
----
-
-## 1. System Requirements
-
-Before downloading, check if your host meets these specifications:
-- **Server Platform**: Paper, Purpur, or Spigot (1.21 or higher).
-- **Java Runtime**: JDK 21 or higher.
-- **Memory**: At least 100MB of free heap memory for Argon2id hashing.
+Quick guide on how to install and setup AegisAuth.
 
 ---
 
-## 2. Installation Steps
+## 1. Requirements
 
-Follow these instructions for a clean installation:
-
-1. **Download**: Download the `AegisAuth-1.0.0.jar` binary file.
-2. **Upload**: Place the JAR file into the `/plugins` directory of your server.
-3. **Start**: Start the server to generate the default configuration files.
-4. **Configure**: Open `/plugins/AegisAuth/config.yml` to set your preferences.
-5. **Reload**: Run `/authadmin reload` in the console to apply any changes.
+- Paper, Purpur, or Spigot (version 1.21 or higher).
+- Java JDK 21 or higher.
 
 ---
 
-## 3. Database Selection Guide
+## 2. Setting Up
 
-AegisAuth supports SQLite and MySQL. Choose the database that fits your setup:
+1. Download the `AegisAuth-1.0.0.jar` plugin file.
+2. Put the JAR file into your server's `/plugins` folder.
+3. Start the server (or restart it). The plugin will generate a `/plugins/AegisAuth` folder with `config.yml`.
+4. Configure your database settings in `config.yml` (SQLite or MySQL).
+5. Reload configuration via command line: `/authadmin reload`.
 
-### SQLite (Single Server)
-- Best for standalone servers.
-- Requires no external software.
-- Fast, secure, and auto-generated locally.
+---
 
-### MySQL (Centralized / BungeeCord / Velocity)
-- Best for multiple servers sharing player accounts.
-- Requires a running MySQL/MariaDB database server.
+## 3. Database Guide
 
-> [!IMPORTANT]
-> When switching from SQLite to MySQL, player accounts will not be migrated automatically. You must manually copy the account rows or start fresh.
+### SQLite Setup (Recommended)
+This is the default configuration. Just leave `type: "SQLITE"` in config.yml. AegisAuth will automatically create a database file called `auth_database.db` inside your plugin directory.
+
+### MySQL Setup
+If you need centralized storage:
+1. Make sure you have a database created on your MySQL server.
+2. Edit database settings in `config.yml`:
+   - Change type to `MYSQL`.
+   - Put in your host, port, database name, user, and password.
+3. Restart your server. AegisAuth will initialize connection pools using HikariCP.

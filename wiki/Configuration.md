@@ -1,20 +1,13 @@
-# AegisAuth Wiki - Configuration
+# Configuration Guide
 
-AegisAuth stores its configuration settings inside the `config.yml` file. This guide provides a detailed explanation of each block.
-
----
-
-## Complete config.yml Reference
-
-Here is the default structure of the `config.yml` file:
+Here is the default `config.yml` with comments explaining what settings you need to adjust for your server.
 
 ```yaml
-# Global display language ("vi" for Vietnamese, "en" for English)
+# Set language: "vi" (Vietnamese) or "en" (English)
 language: "vi"
 
-# Database Connection Settings
 database:
-  # Choose SQLITE for local file-based database or MYSQL for external DB
+  # Choose "SQLITE" (single server) or "MYSQL" (server network)
   type: "SQLITE"
   sqlite:
     file: "auth_database.db"
@@ -26,48 +19,40 @@ database:
     password: ""
     use-ssl: false
 
-# Security Parameters
 security:
-  # Argon2id Cryptographic Settings (Tweak for hardware performance)
+  # Tweak Argon2id settings based on your server memory
   argon2:
     iterations: 3
-    memory-kb: 65536  # 64 MB
+    memory-kb: 65536  # Default is 64MB. Lower this if running on a tight budget server
     parallelism: 1
   password:
     min-length: 6
     max-length: 32
 
-# Session Persistence Settings
 session:
+  # Saves player login session per IP address
   enabled: true
-  ttl-minutes: 720    # 12 hours
+  ttl-minutes: 720  # Session lasts for 12 hours before asking for password again
 
-# Brute-force Prevention Settings
 rate-limit:
+  # Brute-force protection
   enabled: true
-  max-failed-attempts: 5
-  lockout-duration-minutes: 60  # 1 hour
+  max-failed-attempts: 5          # Kick on wrong pass. Ban IP after 5 fails
+  lockout-duration-minutes: 60    # Ban IP for 1 hour
 
-# Timeout countdowns
 auth-timeout:
+  # Login timer
   seconds: 60
-  reminder-interval-seconds: 10
+  reminder-interval-seconds: 10   # How often to show the login title/actionbar
 ```
 
 ---
 
-## Detailed Block Descriptions
+## Tweak Advice
 
-### 1. Database Block
-- **type**: Supported options are `SQLITE` and `MYSQL`.
-- **mysql.use-ssl**: Should be set to `true` if your MySQL provider requires encrypted connections.
+### Low-RAM Hosting
+If your server is hosting on a cheap 1GB or 2GB RAM plan, Argon2id might consume too much memory if multiple players join at the same time. You should reduce `memory-kb` to `32768` (32MB) or `16384` (16MB) to avoid server crashes.
 
-> [!WARNING]
-> If you are using MySQL, never share your `config.yml` file publicly as it contains plain-text credentials for your database.
-
-### 2. Argon2 Block
-Argon2id is memory-hard. Adjust these values depending on your server's available RAM:
-- **memory-kb**: High memory usage prevents CPU/GPU cracking, but allocating too much RAM (e.g. 512MB+) may cause JVM out-of-memory errors on cheap hostings. 64MB (65536 KB) is the recommended sweet spot.
-
-### 3. Session Block
-- **session.enabled**: If set to `true`, players who disconnect and reconnect within the TTL duration from the exact same IP address will be logged in automatically without prompting for a password.
+### Databases
+- SQLite is the easiest setup: it generates a single file locally and requires no configuration.
+- Use MySQL if you want to share player registration accounts across multiple servers.
