@@ -1,6 +1,6 @@
 <config>
     <input>
-        <jar in="build/libs/AegisAuth-1.0.0.jar" out="build/libs/AegisAuth-1.0.0-obfuscated.jar"/>
+        <jar in="build/libs/AegisAuth-1.0.1.jar" out="build/libs/AegisAuth-1.0.1-obfuscated.jar"/>
     </input>
 
     <keep-names>

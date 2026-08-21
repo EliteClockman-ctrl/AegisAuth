@@ -1,9 +1,9 @@
-name: AegisAuth-1.0.0
+name: AegisAuth-1.0.1
 version: '${version}'
 main: com.authsystem.plugin.AuthPlugin
 api-version: '1.21'
 author: Antigravity Team
-description: Enterprise-grade Authentication plugin for Paper 1.21
+description: Enterprise-grade Authentication plugin for Paper / Purpur / Spigot 1.21+ / 26.2
 
 commands:
   register:

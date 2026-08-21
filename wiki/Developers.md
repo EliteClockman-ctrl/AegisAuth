@@ -17,7 +17,7 @@ To build the plugin jar:
 ./gradlew clean build
 ```
 
-This outputs a shaded jar at `build/libs/AegisAuth-1.0.0.jar`.
+This outputs a shaded jar at `build/libs/AegisAuth-1.0.1.jar`.
 
 > [!NOTE]
 > AegisAuth disables the default `jar` task and only outputs the `shadowJar` version. This shaded jar relocates external dependencies (HikariCP, Caffeine, Argon2) to prevent version conflicts with other plugins on your server.

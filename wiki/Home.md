@@ -1,6 +1,6 @@
 # AegisAuth Wiki
 
-AegisAuth is a simple login and registration plugin for Minecraft Paper and Purpur 1.21+ servers. 
+AegisAuth is a simple login and registration plugin for Minecraft Paper, Purpur, and Spigot 1.21+ / 26.2 servers. 
 
 Unlike older authentication plugins that use weak hashing algorithms like MD5 or SHA-256, AegisAuth uses Argon2id to keep player passwords secure. Every database query and password check is run asynchronously, so it will not lag your main server thread.
 

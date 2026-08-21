@@ -2,7 +2,7 @@
 
 # Description
 
-AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper and Purpur 1.21+ servers.
+AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper, Purpur, and Spigot 1.21+ / 26.2 servers.
 
 ---
 
@@ -97,12 +97,12 @@ auth-timeout:
 
 ### System Requirements
 - Java Development Kit (JDK) 21 or higher.
-- Paper / Purpur / Spigot 1.21+ server software.
+- Paper / Purpur / Spigot 1.21+ / 26.2 server software.
 
 ### Compilation Steps
 1. Open a terminal or command prompt in the project root directory.
 2. Run the Gradle build command:
    - Windows: `.\gradlew build`
    - Linux / macOS: `./gradlew build`
-3. The compiled JAR file will be generated at `build/libs/AegisAuth-1.0.0.jar`.
+3. The compiled JAR file will be generated at `build/libs/AegisAuth-1.0.1.jar`.
 4. Place the JAR file into your server's `plugins/` directory and restart the server.

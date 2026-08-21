@@ -1,6 +1,6 @@
-# AegisAuth - Modern, Enterprise-Grade Authentication Plugin for Paper 1.21+
+# AegisAuth - Modern, Enterprise-Grade Authentication Plugin for Paper 1.21+ / 26.2
 
-**AegisAuth** is an advanced, high-performance authentication solution built from the ground up for modern Paper and Purpur 1.21+ servers. Designed with enterprise-grade security and developer precision, AegisAuth protects your server against unauthorized access, password guessing, and brute-force attacks while delivering a smooth, premium player experience.
+**AegisAuth** is an advanced, high-performance authentication solution built from the ground up for modern Paper, Purpur, and Spigot 1.21+ / 26.2 servers. Designed with enterprise-grade security and developer precision, AegisAuth protects your server against unauthorized access, password guessing, and brute-force attacks while delivering a smooth, premium player experience.
 
 ---
 
@@ -57,5 +57,5 @@ Built using the **Kyori Adventure API** and MiniMessage formatting, supporting m
 
 ## System Requirements
 
-- **Minecraft Server**: Paper, Purpur, or Spigot 1.21+
+- **Minecraft Server**: Paper, Purpur, or Spigot 1.21+ / 26.2
 - **Java Version**: Java 21 or higher
