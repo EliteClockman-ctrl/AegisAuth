@@ -1,0 +1,209 @@
+AEGISAUTH END USER LICENSE AGREEMENT
+
+Copyright (c) 2026 CharaZ. All rights reserved.
+
+IMPORTANT - READ CAREFULLY: This End User License Agreement
+(the "Agreement") is a legal contract between you (either an
+individual player or a single server administration entity, hereinafter
+referred to as "Licensee") and CharaZ (hereinafter referred to as
+"Licensor"), the author and sole proprietor of the AegisAuth software,
+including all compiled binary files, configuration files, resources,
+associated assets, documentation, and source code (collectively,
+the "Software").
+
+BY DOWNLOADING, INSTALLING, COPYING, OR RUNNING THE SOFTWARE,
+YOU AGREE TO BE BOUND BY ALL TERMS AND CONDITIONS OF THIS AGREEMENT.
+IF YOU DO NOT AGREE TO THESE TERMS, DO NOT DOWNLOAD, INSTALL,
+OR USE THE SOFTWARE IN ANY WAY.
+
+----------------------------------------------------------------------
+SECTION 1: DEFINITIONS
+----------------------------------------------------------------------
+
+"Software" refers to AegisAuth, which includes the compiled
+Java bytecode (.jar file), config.yml, and all accompanying
+resource files, database schemas, and documentation.
+
+"Licensor" refers to CharaZ, the legal owner of all intellectual
+property rights associated with the Software.
+
+"Licensee" refers to the individual or legal entity that has
+downloaded and is executing the Software.
+
+"Private Server" refers to a single Minecraft server instance
+operated by the Licensee, whether private, public, local, or hosted.
+
+"Reverse Engineer" refers to the process of decompiling,
+disassembling, or analyzing the compiled binary files to reconstruct
+the original source code or logic.
+
+----------------------------------------------------------------------
+SECTION 2: LICENSE GRANT
+----------------------------------------------------------------------
+
+Subject to your strict compliance with the terms of this Agreement,
+Licensor hereby grants Licensee a personal, non-exclusive,
+non-transferable, revocable, and limited license to:
+
+1. Download the compiled binary (.jar) version of the Software
+   from approved sources.
+2. Install and run the Software on a single Minecraft server
+   instance owned or operated by the Licensee.
+3. Access and modify the config.yml files for the sole purpose
+   of configuring the Software for server operations.
+
+This license does not convey any ownership rights, title, or interest
+in the Software to the Licensee.
+
+----------------------------------------------------------------------
+SECTION 3: USE RESTRICTIONS
+----------------------------------------------------------------------
+
+Licensee shall not, and shall not allow any third party to:
+
+1. Copy, duplicate, replicate, clone, modify, translate, adapt,
+   or create derivative works of the Software, in whole or in part,
+   except as expressly permitted in Section 2.
+2. Decompile, disassemble, reverse engineer, or attempt to derive,
+   reconstruct, or discover the source code, underlying ideas,
+   algorithms, or file formats of the Software.
+3. Distribute, lease, rent, sublicense, sell, resell, transfer,
+   or publish the Software, or any copies thereof, to any third-party
+   or public hosting platform.
+4. Upload the Software, in whole or in part, to public repositories
+   or file-sharing websites (including but not limited to GitHub,
+   Modrinth, SpigotMC, forums, or Discord servers) without the express
+   written permission of the Licensor.
+5. Bypass, disable, or modify any license validation systems,
+   anti-piracy mechanisms, or copyright notice blocks implemented
+   within the Software.
+
+----------------------------------------------------------------------
+SECTION 4: OWNERSHIP AND INTELLECTUAL PROPERTY
+----------------------------------------------------------------------
+
+The Software, its design, structure, database layout, features,
+and original code are protected by domestic and international
+copyright, patent, trademark, and trade secret laws.
+
+All intellectual property rights, ownership, and title in the Software
+remain exclusively with CharaZ. Licensee acknowledges that the Software
+is licensed, not sold, and that Licensee's rights are strictly
+limited to those defined in this Agreement.
+
+----------------------------------------------------------------------
+SECTION 5: DATA AND PRIVACY
+----------------------------------------------------------------------
+
+The Software operates locally on Licensee's server hardware. It may
+collect and store player login credentials (in hashed format), IP
+addresses, and session duration data inside a local SQLite or MySQL
+database.
+
+Licensor does not collect, receive, or store any of this player data.
+Licensee is solely responsible for complying with all local privacy
+laws and regulations regarding the storage of player data.
+
+----------------------------------------------------------------------
+SECTION 6: AUDIT AND VERIFICATION
+----------------------------------------------------------------------
+
+Licensor reserves the right, upon reasonable prior notice, to inspect
+and verify Licensee's server files to ensure compliance with the
+restrictions listed in this Agreement.
+
+If an audit reveals unauthorized modifications, copying, or decompilation
+of the Software, Licensor may immediately terminate this Agreement.
+
+----------------------------------------------------------------------
+SECTION 7: TERM AND TERMINATION
+----------------------------------------------------------------------
+
+This Agreement is effective from the first date of download or installation
+and remains in effect until terminated.
+
+Your rights under this License will terminate automatically without notice
+from the Licensor if you fail to comply with any of its terms.
+
+Upon termination of this Agreement, Licensee must:
+1. Immediately cease all use of the Software.
+2. Delete and destroy all copies of the Software in their possession.
+3. Purge the Software from all server directories, backups, and hosts.
+
+----------------------------------------------------------------------
+SECTION 8: DISCLAIMER OF WARRANTIES
+----------------------------------------------------------------------
+
+THE SOFTWARE IS PROVIDED "AS IS" AND WITH ALL FAULTS. LICENSOR
+MAKES NO WARRANTIES, EXPRESS OR IMPLIED, AND SPECIFICALLY DISCLAIMS:
+
+1. THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE.
+2. ANY WARRANTY THAT THE SOFTWARE WILL OPERATE UNINTERRUPTED
+   OR ERROR-FREE.
+3. ANY WARRANTY REGARDING THE SECURITY, RELIABILITY, OR PERFORMANCE
+   OF THE SOFTWARE.
+
+LICENSEE ASSUMES ALL RISK ASSOCIATED WITH USING THE SOFTWARE.
+
+----------------------------------------------------------------------
+SECTION 9: LIMITATION OF LIABILITY
+----------------------------------------------------------------------
+
+IN NO EVENT SHALL CHARAZ BE LIABLE FOR ANY DIRECT, INDIRECT,
+SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES,
+INCLUDING BUT NOT LIMITED TO:
+
+1. LOSS OF SERVER DATA OR DATABASE CORRUPTION.
+2. MAYSERVER KICKOUTS, PLAYER LOSS, OR LOSS OF BUSINESS REVENUE.
+3. COST OF PROCUREMENT OF SUBSTITUTE GOODS OR PLUGINS.
+4. ANY LOSS OR DAMAGE ARISING FROM THE USE OR INABILITY TO USE
+   THE SOFTWARE.
+
+THIS LIMITATION APPLIES EVEN IF CHARAZ HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+----------------------------------------------------------------------
+SECTION 10: INDEMNIFICATION
+----------------------------------------------------------------------
+
+Licensee agrees to indemnify, defend, and hold harmless CharaZ
+from and against any and all claims, lawsuits, losses, liabilities,
+and expenses (including attorney fees) arising out of Licensee's
+misuse of the Software or violation of this Agreement.
+
+----------------------------------------------------------------------
+SECTION 11: GOVERNING LAW
+----------------------------------------------------------------------
+
+This Agreement shall be governed by, and construed in accordance
+with, the laws of the jurisdiction of the Licensor's residence,
+without regard to conflict of laws principles.
+
+Any legal dispute arising from this Agreement must be resolved
+exclusively in courts located within the Licensor's jurisdiction.
+
+----------------------------------------------------------------------
+SECTION 12: SEVERABILITY
+----------------------------------------------------------------------
+
+If any provision of this Agreement is held to be invalid or
+unenforceable by a court of competent jurisdiction, the remaining
+provisions shall remain in full force and effect.
+
+----------------------------------------------------------------------
+SECTION 13: ENTIRE AGREEMENT
+----------------------------------------------------------------------
+
+This Agreement constitutes the entire contract between Licensor
+and Licensee regarding the AegisAuth Software.
+
+Any modifications to this Agreement must be made in writing
+and signed by CharaZ.
+
+----------------------------------------------------------------------
+CONTACT INFORMATION
+----------------------------------------------------------------------
+
+If you have any questions or require authorization to copy or distribute
+the Software, please contact CharaZ.
