@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.authsystem.plugin'
-version = '1.0.1'
+version = '1.0.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -48,7 +48,7 @@ jar {
 }
 
 shadowJar {
-    archiveFileName.set('AegisAuth-1.0.1.jar')
+    archiveFileName.set('AegisAuth-1.0.0.jar')
     archiveClassifier.set('')
     relocate 'de.mkammerer.argon2', 'com.authsystem.plugin.libs.argon2'
     relocate 'com.zaxxer.hikari', 'com.authsystem.plugin.libs.hikari'

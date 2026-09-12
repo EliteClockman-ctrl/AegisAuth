@@ -1,4 +1,4 @@
-name: AegisAuth-1.0.1
+name: AegisAuth-1.0.0
 version: '${version}'
 main: com.authsystem.plugin.AuthPlugin
 api-version: '1.21'
