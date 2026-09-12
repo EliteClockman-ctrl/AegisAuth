@@ -55,24 +55,8 @@ shadowJar {
     relocate 'com.github.benmanes.caffeine', 'com.authsystem.plugin.libs.caffeine'
 }
 
-task obfuscate(type: JavaExec, dependsOn: shadowJar) {
-    executable = "${System.getProperty('java.home')}/bin/java.exe"
-    classpath = files('lib/allatori.jar') + configurations.compileClasspath
-    mainClass = 'com.allatori.Obfuscate'
-    args 'allatori.xml'
-
-    doLast {
-        def originalJar = file('build/libs/AegisAuth-1.0.1.jar')
-        def obfuscatedJar = file('build/libs/AegisAuth-1.0.1-obfuscated.jar')
-        if (obfuscatedJar.exists()) {
-            originalJar.delete()
-            obfuscatedJar.renameTo(originalJar)
-        }
-    }
-}
-
 build {
-    dependsOn obfuscate
+    dependsOn shadowJar
 }
 
 processResources {
