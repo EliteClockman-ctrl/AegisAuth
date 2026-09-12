@@ -20,6 +20,7 @@ public class MessageUtil {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
     private final ConfigManager configManager;
     private LanguageManager languageManager;
+    private final Map<String, Component> staticComponentCache = new java.util.concurrent.ConcurrentHashMap<>();
 
     public MessageUtil(ConfigManager configManager) {
         this.configManager = configManager;
@@ -32,6 +33,11 @@ public class MessageUtil {
 
     public void setLanguageManager(LanguageManager languageManager) {
         this.languageManager = languageManager;
+        clearCache();
+    }
+
+    public void clearCache() {
+        staticComponentCache.clear();
     }
 
     public String resolveLanguage(Audience audience) {
@@ -77,7 +83,10 @@ public class MessageUtil {
     }
 
     public Component getMessage(MessageKey key, String lang) {
-        return parse(configManager.getPrefix(lang) + configManager.getRawMessage(key, lang));
+        String cacheKey = (lang != null ? lang : "") + ":msg:" + key.name();
+        return staticComponentCache.computeIfAbsent(cacheKey, k -> 
+            parse(configManager.getPrefix(lang) + configManager.getRawMessage(key, lang))
+        );
     }
 
     public Component getMessage(MessageKey key, Map<String, String> placeholders) {
@@ -93,7 +102,10 @@ public class MessageUtil {
     }
 
     public Component getRawMessage(MessageKey key, String lang) {
-        return parse(configManager.getRawMessage(key, lang));
+        String cacheKey = (lang != null ? lang : "") + ":raw:" + key.name();
+        return staticComponentCache.computeIfAbsent(cacheKey, k -> 
+            parse(configManager.getRawMessage(key, lang))
+        );
     }
 
     public Component getRawMessage(MessageKey key, Map<String, String> placeholders) {

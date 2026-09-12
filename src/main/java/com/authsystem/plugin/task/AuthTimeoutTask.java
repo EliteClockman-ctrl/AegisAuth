@@ -45,37 +45,43 @@ public class AuthTimeoutTask {
         authDao.findByUniqueId(uniqueId).thenAccept(optAccount -> {
             boolean isRegistered = optAccount.isPresent();
 
-            BukkitTask task = new BukkitRunnable() {
-                int remaining = totalSeconds;
-
-                @Override
-                public void run() {
-                    if (!player.isOnline() || sessionManager.isLoggedIn(uniqueId)) {
-                        cancelTimeout(uniqueId);
-                        return;
-                    }
-
-                    if (remaining <= 0) {
-                        cancel();
-                        activeTasks.remove(uniqueId);
-                        Component kickReason = messageUtil.getMessage(MessageKey.TIMEOUT_KICK);
-                        Bukkit.getScheduler().runTask(plugin, () -> player.kick(kickReason));
-                        return;
-                    }
-
-                    MessageKey actionKey = isRegistered ? MessageKey.ACTIONBAR_LOGIN_COUNTDOWN : MessageKey.ACTIONBAR_REGISTER_COUNTDOWN;
-                    messageUtil.sendActionBar(player, actionKey, Map.of("seconds", String.valueOf(remaining)));
-
-                    if (remaining % reminderInterval == 0 || remaining == totalSeconds) {
-                        MessageKey chatKey = isRegistered ? MessageKey.LOGIN_PROMPT : MessageKey.REGISTER_PROMPT;
-                        messageUtil.sendMessage(player, chatKey);
-                    }
-
-                    remaining--;
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                if (!player.isOnline() || sessionManager.isLoggedIn(uniqueId)) {
+                    return;
                 }
-            }.runTaskTimer(plugin, 0L, 20L);
 
-            activeTasks.put(uniqueId, task);
+                BukkitTask task = new BukkitRunnable() {
+                    int remaining = totalSeconds;
+
+                    @Override
+                    public void run() {
+                        if (!player.isOnline() || sessionManager.isLoggedIn(uniqueId)) {
+                            cancelTimeout(uniqueId);
+                            return;
+                        }
+
+                        if (remaining <= 0) {
+                            cancel();
+                            activeTasks.remove(uniqueId);
+                            Component kickReason = messageUtil.getMessage(MessageKey.TIMEOUT_KICK);
+                            player.kick(kickReason);
+                            return;
+                        }
+
+                        MessageKey actionKey = isRegistered ? MessageKey.ACTIONBAR_LOGIN_COUNTDOWN : MessageKey.ACTIONBAR_REGISTER_COUNTDOWN;
+                        messageUtil.sendActionBar(player, actionKey, Map.of("seconds", String.valueOf(remaining)));
+
+                        if (remaining % reminderInterval == 0 || remaining == totalSeconds) {
+                            MessageKey chatKey = isRegistered ? MessageKey.LOGIN_PROMPT : MessageKey.REGISTER_PROMPT;
+                            messageUtil.sendMessage(player, chatKey);
+                        }
+
+                        remaining--;
+                    }
+                }.runTaskTimer(plugin, 0L, 20L);
+
+                activeTasks.put(uniqueId, task);
+            });
         });
     }
 

@@ -43,15 +43,18 @@ public class PlayerRestrictionListener implements Listener {
         return !sessionManager.isLoggedIn(player.getUniqueId());
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {
+        if (!event.hasChangedPosition()) {
+            return;
+        }
+
         if (!isUnauthenticated(event.getPlayer())) {
             return;
         }
 
         Location from = event.getFrom();
         Location to = event.getTo();
-
         if (to == null) {
             return;
         }

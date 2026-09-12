@@ -102,6 +102,16 @@ public class DatabaseManager {
         }
 
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+            if (!"MYSQL".equalsIgnoreCase(configManager.getDatabaseType())) {
+                try {
+                    stmt.execute("PRAGMA journal_mode = WAL;");
+                    stmt.execute("PRAGMA synchronous = NORMAL;");
+                    stmt.execute("PRAGMA temp_store = MEMORY;");
+                    stmt.execute("PRAGMA cache_size = 10000;");
+                } catch (SQLException ignored) {
+                }
+            }
+
             stmt.executeUpdate(accountsTable);
             try {
                 stmt.executeUpdate("ALTER TABLE auth_accounts ADD COLUMN language VARCHAR(10) NOT NULL DEFAULT 'vi';");
@@ -112,7 +122,15 @@ public class DatabaseManager {
                 stmt.executeUpdate(accountsIndex);
             } catch (SQLException ignored) {
             }
+            try {
+                stmt.executeUpdate("CREATE INDEX IF NOT EXISTS idx_auth_last_ip ON auth_accounts(last_ip);");
+            } catch (SQLException ignored) {
+            }
             stmt.executeUpdate(auditTable);
+            try {
+                stmt.executeUpdate("CREATE INDEX IF NOT EXISTS idx_audit_target ON auth_audit_logs(target_player);");
+            } catch (SQLException ignored) {
+            }
         }
     }
 
