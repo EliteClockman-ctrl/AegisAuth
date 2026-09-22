@@ -1,0 +1,1 @@
+**AegisAuth** is an advanced, high-performance authentication solution built from the ground up for modern **Paper and Purpur 1.21+** servers. Designed with enterprise-grade security and developer precision, AegisAuth protects your server against unauthorized access, password guessing, and brute-force attacks while delivering a smooth, premium player experience.
