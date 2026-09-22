@@ -1,5 +1,3 @@
-<img src="https://i.postimg.cc/1XC31rVJ/banner.png" alt="Banner" />
-
 # Description
 
 AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper, Purpur, and Spigot 1.21+ / 26.2 servers.
