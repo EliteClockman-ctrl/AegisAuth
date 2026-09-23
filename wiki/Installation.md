@@ -1,4 +1,4 @@
-﻿# Installation Guide
+# Installation Guide
 
 Quick guide on how to install and setup AegisAuth.
 
@@ -13,7 +13,7 @@ Quick guide on how to install and setup AegisAuth.
 
 ## 2. Setting Up
 
-1. Download the `AegisAuth-1.0.0.jar` plugin file.
+1. Download the `AegisAuth-1.0.1.jar` plugin file.
 2. Put the JAR file into your server's `/plugins` folder.
 3. Start the server (or restart it). The plugin will generate a `/plugins/AegisAuth` folder with `config.yml`.
 4. Configure your database settings in `config.yml` (SQLite or MySQL).

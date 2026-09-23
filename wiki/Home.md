@@ -1,4 +1,4 @@
-﻿# AegisAuth Wiki
+# AegisAuth Wiki
 
 AegisAuth is a simple login and registration plugin for Minecraft Paper, Purpur, and Spigot 1.21.x / 26.1.x servers. 
 

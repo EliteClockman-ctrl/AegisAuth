@@ -1,4 +1,4 @@
-﻿# Navigation
+# Navigation
 
 - [Home](Home)
 - [Features](Features)

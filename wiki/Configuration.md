@@ -1,4 +1,4 @@
-﻿# Configuration Guide
+# Configuration Guide
 
 Here is the default `config.yml` with comments explaining what settings you need to adjust for your server.
 

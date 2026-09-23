@@ -104,5 +104,5 @@ auth-timeout:
 2. Run the Gradle build command:
    - Windows: `.\gradlew build`
    - Linux / macOS: `./gradlew build`
-3. The compiled JAR file will be generated at `build/libs/AegisAuth-1.0.0.jar`.
+3. The compiled JAR file will be generated at `build/libs/AegisAuth-1.0.1.jar`.
 4. Place the JAR file into your server's `plugins/` directory and restart the server.

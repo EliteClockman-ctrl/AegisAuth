@@ -1,4 +1,4 @@
-﻿# Commands and Permissions
+# Commands and Permissions
 
 Reference guide for all AegisAuth command commands and permissions.
 

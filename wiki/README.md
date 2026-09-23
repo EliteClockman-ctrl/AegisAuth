@@ -1,4 +1,4 @@
-﻿# AegisAuth Wiki
+# AegisAuth Wiki
 
 Welcome to the AegisAuth Wiki repository. This repository contains the complete documentation, configuration guides, and references for the AegisAuth Minecraft authentication plugin.
 

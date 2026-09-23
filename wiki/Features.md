@@ -1,4 +1,4 @@
-﻿# Plugin Features
+# Plugin Features
 
 Here is how the core features of AegisAuth work under the hood.
 
