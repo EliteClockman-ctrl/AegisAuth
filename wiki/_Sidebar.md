@@ -1,4 +1,4 @@
-# Navigation
+﻿# Navigation
 
 - [Home](Home)
 - [Features](Features)
@@ -14,3 +14,4 @@
 - [GitHub Repository](https://github.com/EliteClockman-ctrl/AegisAuth)
 - [Modrinth Page](https://modrinth.com)
 - [Report Issues](https://github.com/EliteClockman-ctrl/AegisAuth/issues)
+

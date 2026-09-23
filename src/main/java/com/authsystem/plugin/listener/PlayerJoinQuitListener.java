@@ -15,6 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.net.InetSocketAddress;
 import java.time.Duration;
@@ -53,6 +55,7 @@ public class PlayerJoinQuitListener implements Listener {
         String ip = address != null ? address.getAddress().getHostAddress() : "127.0.0.1";
 
         player.setInvulnerable(true);
+        applyAuthEffects(player);
 
         authDao.findByUniqueId(uniqueId).thenAccept(optAccount -> {
             plugin.getServer().getScheduler().runTask(plugin, () -> {
@@ -96,6 +99,7 @@ public class PlayerJoinQuitListener implements Listener {
         premiumManager.removePendingConfirmation(uniqueId);
 
         player.setInvulnerable(false);
+        removeAuthEffects(player);
 
         if (!sessionManager.isLoggedIn(uniqueId)) {
             sessionManager.markLoggedOut(uniqueId, true);
@@ -107,6 +111,7 @@ public class PlayerJoinQuitListener implements Listener {
     private void completeLogin(Player player, AuthAccount account, String ip, MessageKey successMessageKey) {
         sessionManager.saveSession(player.getUniqueId(), ip);
         player.setInvulnerable(false);
+        removeAuthEffects(player);
         timeoutTask.cancelTimeout(player.getUniqueId());
         messageUtil.clearDisplay(player);
 
@@ -114,5 +119,15 @@ public class PlayerJoinQuitListener implements Listener {
 
         messageUtil.sendMessage(player, successMessageKey);
         messageUtil.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
+    }
+
+    public static void applyAuthEffects(Player player) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, PotionEffect.INFINITE_DURATION, 1, false, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, PotionEffect.INFINITE_DURATION, 6, false, false, false));
+    }
+
+    public static void removeAuthEffects(Player player) {
+        player.removePotionEffect(PotionEffectType.BLINDNESS);
+        player.removePotionEffect(PotionEffectType.SLOWNESS);
     }
 }

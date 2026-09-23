@@ -1,4 +1,4 @@
-# Commands and Permissions
+﻿# Commands and Permissions
 
 Reference guide for all AegisAuth command commands and permissions.
 
@@ -52,3 +52,4 @@ Reference guide for all AegisAuth command commands and permissions.
 - **Subcommands**:
   - `reload`: Reloads all configs from config.yml.
   - `unregister <player>`: Deletes the account and kicks the player instantly if they are online.
+

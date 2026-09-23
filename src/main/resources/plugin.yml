@@ -1,74 +1,75 @@
-name: AegisAuth-1.0.0
+﻿name: AegisAuth-1.0.0
 version: '${version}'
 main: com.authsystem.plugin.AuthPlugin
 api-version: '1.21'
 author: Antigravity Team
-description: Enterprise-grade Authentication plugin for Paper / Purpur / Spigot 1.21+ / 26.2
+description: Enterprise-grade Authentication plugin for Paper / Purpur / Spigot 1.21.x / 26.1.x
 
 commands:
   register:
-    description: Đăng ký tài khoản mật khẩu
+    description: ÄÄƒng kÃ½ tÃ i khoáº£n máº­t kháº©u
     aliases: [reg]
     permission: auth.player.register
     usage: /<command> <password> <confirmPassword>
   login:
-    description: Đăng nhập vào hệ thống
+    description: ÄÄƒng nháº­p vÃ o há»‡ thá»‘ng
     aliases: [l, log]
     permission: auth.player.login
     usage: /<command> <password>
   changepassword:
-    description: Đổi mật khẩu tài khoản
+    description: Äá»•i máº­t kháº©u tÃ i khoáº£n
     aliases: [changepass]
     permission: auth.player.changepassword
     usage: /<command> <oldPassword> <newPassword>
   premium:
-    description: Bắt đầu quy trình kích hoạt chế độ Premium
+    description: Báº¯t Ä‘áº§u quy trÃ¬nh kÃ­ch hoáº¡t cháº¿ Ä‘á»™ Premium
     permission: auth.player.premium
     usage: /<command>
   premiumconfirm:
-    description: Xác nhận kích hoạt chế độ Premium Auto-login
+    description: XÃ¡c nháº­n kÃ­ch hoáº¡t cháº¿ Ä‘á»™ Premium Auto-login
     permission: auth.player.premium
     usage: /<command>
   unregister:
-    description: Xóa tài khoản người chơi khỏi hệ thống
+    description: XÃ³a tÃ i khoáº£n ngÆ°á»i chÆ¡i khá»i há»‡ thá»‘ng
     permission: auth.admin.unregister
     usage: /<command> <player>
   unpremium:
-    description: Hủy chế độ Premium của người chơi
+    description: Há»§y cháº¿ Ä‘á»™ Premium cá»§a ngÆ°á»i chÆ¡i
     permission: auth.admin.unpremium
     usage: /<command> <player>
   language:
-    description: Thay đổi ngôn ngữ hiển thị hệ thống (Vietnamese / English)
+    description: Thay Ä‘á»•i ngÃ´n ngá»¯ hiá»ƒn thá»‹ há»‡ thá»‘ng (Vietnamese / English)
     aliases: [lang]
     permission: auth.admin.language
     usage: /<command> <vietnamese|english>
   authadmin:
-    description: Quản trị hệ thống Authentication
+    description: Quáº£n trá»‹ há»‡ thá»‘ng Authentication
     permission: auth.admin.manage
     usage: /<command> <reload|unregister> [player]
 
 permissions:
   auth.player.register:
-    description: Quyền đăng ký tài khoản
+    description: Quyá»n Ä‘Äƒng kÃ½ tÃ i khoáº£n
     default: true
   auth.player.login:
-    description: Quyền đăng nhập tài khoản
+    description: Quyá»n Ä‘Äƒng nháº­p tÃ i khoáº£n
     default: true
   auth.player.changepassword:
-    description: Quyền đổi mật khẩu
+    description: Quyá»n Ä‘á»•i máº­t kháº©u
     default: true
   auth.player.premium:
-    description: Quyền kích hoạt và xác nhận Premium
+    description: Quyá»n kÃ­ch hoáº¡t vÃ  xÃ¡c nháº­n Premium
     default: true
   auth.admin.language:
-    description: Quyền thay đổi ngôn ngữ hệ thống cho Admin
+    description: Quyá»n thay Ä‘á»•i ngÃ´n ngá»¯ há»‡ thá»‘ng cho Admin
     default: op
   auth.admin.unregister:
-    description: Quyền xóa tài khoản người chơi khỏi hệ thống
+    description: Quyá»n xÃ³a tÃ i khoáº£n ngÆ°á»i chÆ¡i khá»i há»‡ thá»‘ng
     default: op
   auth.admin.unpremium:
-    description: Quyền hủy chế độ Premium của người chơi
+    description: Quyá»n há»§y cháº¿ Ä‘á»™ Premium cá»§a ngÆ°á»i chÆ¡i
     default: op
   auth.admin.manage:
-    description: Quyền quản trị reload và unregister tài khoản
+    description: Quyá»n quáº£n trá»‹ reload vÃ  unregister tÃ i khoáº£n
     default: op
+

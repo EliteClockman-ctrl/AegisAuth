@@ -1,4 +1,4 @@
-# Installation Guide
+﻿# Installation Guide
 
 Quick guide on how to install and setup AegisAuth.
 
@@ -6,7 +6,7 @@ Quick guide on how to install and setup AegisAuth.
 
 ## 1. Requirements
 
-- Paper, Purpur, or Spigot (version 1.21+ / 26.2 or higher).
+- Paper, Purpur, or Spigot (version 1.21.x / 26.1.x or higher).
 - Java JDK 21 or higher.
 
 ---
@@ -33,3 +33,4 @@ If you need centralized storage:
    - Change type to `MYSQL`.
    - Put in your host, port, database name, user, and password.
 3. Restart your server. AegisAuth will initialize connection pools using HikariCP.
+

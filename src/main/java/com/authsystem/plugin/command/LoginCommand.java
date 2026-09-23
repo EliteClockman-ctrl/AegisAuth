@@ -4,6 +4,7 @@ import com.authsystem.plugin.config.ConfigManager;
 import com.authsystem.plugin.config.MessageKey;
 import com.authsystem.plugin.database.dao.AuthDao;
 import com.authsystem.plugin.database.model.AuthAccount;
+import com.authsystem.plugin.listener.PlayerJoinQuitListener;
 import com.authsystem.plugin.security.PasswordHasher;
 import com.authsystem.plugin.security.RateLimiter;
 import com.authsystem.plugin.security.SessionManager;
@@ -33,9 +34,9 @@ public class LoginCommand implements CommandExecutor {
     private final AuthDao authDao;
     private final AuthTimeoutTask timeoutTask;
 
-    public LoginCommand(JavaPlugin plugin, ConfigManager configManager, MessageUtil messageUtil, PasswordHasher passwordHasher,
-                        RateLimiter rateLimiter, SessionManager sessionManager,
-                        AuthDao authDao, AuthTimeoutTask timeoutTask) {
+    public LoginCommand(JavaPlugin plugin, ConfigManager configManager, MessageUtil messageUtil,
+                        PasswordHasher passwordHasher, RateLimiter rateLimiter,
+                        SessionManager sessionManager, AuthDao authDao, AuthTimeoutTask timeoutTask) {
         this.plugin = plugin;
         this.configManager = configManager;
         this.messageUtil = messageUtil;
@@ -86,6 +87,7 @@ public class LoginCommand implements CommandExecutor {
                         rateLimiter.clearFailedAttempts(ip);
                         sessionManager.saveSession(uniqueId, ip);
                         player.setInvulnerable(false);
+                        PlayerJoinQuitListener.removeAuthEffects(player);
                         timeoutTask.cancelTimeout(uniqueId);
                         messageUtil.clearDisplay(player);
 

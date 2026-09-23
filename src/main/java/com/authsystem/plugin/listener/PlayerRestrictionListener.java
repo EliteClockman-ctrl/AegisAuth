@@ -14,13 +14,12 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
 
 import java.util.Set;
 
@@ -99,6 +98,13 @@ public class PlayerRestrictionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (event.getWhoClicked() instanceof Player player && isUnauthenticated(player)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onInventoryOpen(InventoryOpenEvent event) {
         if (event.getPlayer() instanceof Player player && isUnauthenticated(player)) {
             event.setCancelled(true);
@@ -115,6 +121,20 @@ public class PlayerRestrictionListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemPickup(EntityPickupItemEvent event) {
         if (event.getEntity() instanceof Player player && isUnauthenticated(player)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onItemConsume(PlayerItemConsumeEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSwapHandItems(PlayerSwapHandItemsEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
             event.setCancelled(true);
         }
     }
@@ -148,6 +168,13 @@ public class PlayerRestrictionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
+    public void onInteractAtEntity(PlayerInteractAtEntityEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player player && isUnauthenticated(player)) {
             event.setCancelled(true);
@@ -158,6 +185,73 @@ public class PlayerRestrictionListener implements Listener {
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player player && isUnauthenticated(player)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onVehicleEnter(VehicleEnterEvent event) {
+        if (event.getEntered() instanceof Player player && isUnauthenticated(player)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerPortal(PlayerPortalEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        if (isUnauthenticated(event.getPlayer()) && event.getCause() != PlayerTeleportEvent.TeleportCause.PLUGIN) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onBedEnter(PlayerBedEnterEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onToggleFlight(PlayerToggleFlightEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onToggleSprint(PlayerToggleSprintEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onToggleSneak(PlayerToggleSneakEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onEntityTarget(EntityTargetLivingEntityEvent event) {
+        if (event.getTarget() instanceof Player player && isUnauthenticated(player)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onCommandSend(PlayerCommandSendEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.getCommands().removeIf(cmd -> !cmd.equalsIgnoreCase("login")
+                    && !cmd.equalsIgnoreCase("l")
+                    && !cmd.equalsIgnoreCase("log")
+                    && !cmd.equalsIgnoreCase("register")
+                    && !cmd.equalsIgnoreCase("reg"));
         }
     }
 }

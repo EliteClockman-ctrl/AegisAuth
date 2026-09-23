@@ -1,4 +1,4 @@
-# AegisAuth Wiki
+﻿# AegisAuth Wiki
 
 Welcome to the AegisAuth Wiki repository. This repository contains the complete documentation, configuration guides, and references for the AegisAuth Minecraft authentication plugin.
 
@@ -17,3 +17,4 @@ Welcome to the AegisAuth Wiki repository. This repository contains the complete 
 
 For the source code and compilation assets of the AegisAuth plugin, please visit the primary repository:
 https://github.com/EliteClockman-ctrl/AegisAuth
+

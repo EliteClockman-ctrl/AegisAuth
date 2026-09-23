@@ -1,6 +1,6 @@
 # Description
 
-AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper, Purpur, and Spigot 1.21+ / 26.2 servers.
+AegisAuth is a high-performance, enterprise-grade authentication plugin designed specifically for Minecraft Paper, Purpur, and Spigot 1.21.x / 26.1.x servers.
 
 ---
 
@@ -10,6 +10,8 @@ AegisAuth is a high-performance, enterprise-grade authentication plugin designed
 - Dual Database Engine: Supports SQLite (file-based default) and MySQL with HikariCP connection pooling for maximum throughput.
 - Authentication Flow:
   - Mandatory account registration before accessing game actions.
+  - Blindness and Slowness visual/movement impairment while unauthenticated.
+  - Full bypass protection: Blocking eating, item swapping, portal teleportation, inventory interaction, entity targeting, and flight until authenticated.
   - IP-based session persistence (Session TTL) for seamless reconnection.
   - Real-time countdown timer displayed via Title and Actionbar.
   - Immediate disconnection (Kick) upon entering an incorrect password.
@@ -95,7 +97,7 @@ auth-timeout:
 
 ### System Requirements
 - Java Development Kit (JDK) 21 or higher.
-- Paper / Purpur / Spigot 1.21+ / 26.2 server software.
+- Paper / Purpur / Spigot 1.21.x / 26.1.x server software.
 
 ### Compilation Steps
 1. Open a terminal or command prompt in the project root directory.

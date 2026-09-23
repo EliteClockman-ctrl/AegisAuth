@@ -4,6 +4,7 @@ import com.authsystem.plugin.config.ConfigManager;
 import com.authsystem.plugin.config.MessageKey;
 import com.authsystem.plugin.database.dao.AuthDao;
 import com.authsystem.plugin.database.model.AuthAccount;
+import com.authsystem.plugin.listener.PlayerJoinQuitListener;
 import com.authsystem.plugin.security.PasswordHasher;
 import com.authsystem.plugin.security.SessionManager;
 import com.authsystem.plugin.task.AuthTimeoutTask;
@@ -114,6 +115,7 @@ public class RegisterCommand implements CommandExecutor {
                         if (saved) {
                             sessionManager.saveSession(uniqueId, ip);
                             player.setInvulnerable(false);
+                            PlayerJoinQuitListener.removeAuthEffects(player);
                             timeoutTask.cancelTimeout(uniqueId);
                             messageUtil.clearDisplay(player);
 

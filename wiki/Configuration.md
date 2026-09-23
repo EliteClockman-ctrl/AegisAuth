@@ -1,4 +1,4 @@
-# Configuration Guide
+﻿# Configuration Guide
 
 Here is the default `config.yml` with comments explaining what settings you need to adjust for your server.
 
@@ -56,3 +56,4 @@ If your server is hosting on a cheap 1GB or 2GB RAM plan, Argon2id might consume
 ### Databases
 - SQLite is the easiest setup: it generates a single file locally and requires no configuration.
 - Use MySQL if you want to share player registration accounts across multiple servers.
+

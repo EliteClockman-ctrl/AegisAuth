@@ -1,4 +1,4 @@
-# Plugin Features
+﻿# Plugin Features
 
 Here is how the core features of AegisAuth work under the hood.
 
@@ -40,3 +40,4 @@ This feature allows official Mojang account owners to join without entering pass
 
 > [!NOTE]
 > If a player changes their username or account status, admins can disable this using `/unpremium <player>`.
+
