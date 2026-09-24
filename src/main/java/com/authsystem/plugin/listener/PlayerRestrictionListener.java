@@ -3,6 +3,7 @@ package com.authsystem.plugin.listener;
 import com.authsystem.plugin.config.MessageKey;
 import com.authsystem.plugin.security.SessionManager;
 import com.authsystem.plugin.util.MessageUtil;
+import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,10 +12,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.PlayerLeashEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -140,6 +143,13 @@ public class PlayerRestrictionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
+    public void onItemHeldChange(PlayerItemHeldEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockBreakEvent event) {
         if (isUnauthenticated(event.getPlayer())) {
             event.setCancelled(true);
@@ -148,6 +158,13 @@ public class PlayerRestrictionListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSignChange(SignChangeEvent event) {
         if (isUnauthenticated(event.getPlayer())) {
             event.setCancelled(true);
         }
@@ -169,6 +186,111 @@ public class PlayerRestrictionListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onInteractAtEntity(PlayerInteractAtEntityEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onArmorStandManipulate(PlayerArmorStandManipulateEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onFish(PlayerFishEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onBucketEmpty(PlayerBucketEmptyEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onBucketFill(PlayerBucketFillEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onShearEntity(PlayerShearEntityEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onLeashEntity(PlayerLeashEntityEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onUnleashEntity(PlayerUnleashEntityEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onEditBook(PlayerEditBookEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onTakeLecternBook(PlayerTakeLecternBookEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onHarvestBlock(PlayerHarvestBlockEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onRiptide(PlayerRiptideEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.getPlayer().setVelocity(new org.bukkit.util.Vector(0, 0, 0));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onElytraBoost(PlayerElytraBoostEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onGameModeChange(PlayerGameModeChangeEvent event) {
+        if (isUnauthenticated(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onVelocity(PlayerVelocityEvent event) {
         if (isUnauthenticated(event.getPlayer())) {
             event.setCancelled(true);
         }

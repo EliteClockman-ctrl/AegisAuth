@@ -14,8 +14,11 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import java.net.InetAddress;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class PlayerPreLoginListener implements Listener {
+
+    private static final Pattern VALID_USERNAME = Pattern.compile("^[a-zA-Z0-9_]{3,16}$");
 
     private final ConfigManager configManager;
     private final RateLimiter rateLimiter;
@@ -31,7 +34,13 @@ public class PlayerPreLoginListener implements Listener {
     public void onAsyncPreLogin(AsyncPlayerPreLoginEvent event) {
         String username = event.getName();
         InetAddress address = event.getAddress();
-        String ip = address.getHostAddress();
+        String ip = address != null ? address.getHostAddress() : "127.0.0.1";
+
+        if (username == null || !VALID_USERNAME.matcher(username).matches()) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, 
+                    messageUtil.parse("<red>Tên người chơi không hợp lệ! Chỉ cho phép 3-16 ký tự a-z, 0-9 và _.</red>"));
+            return;
+        }
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (onlinePlayer.getName().equalsIgnoreCase(username)) {

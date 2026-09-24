@@ -88,6 +88,7 @@ public class LoginCommand implements CommandExecutor {
                         sessionManager.saveSession(uniqueId, ip);
                         player.setInvulnerable(false);
                         PlayerJoinQuitListener.removeAuthEffects(player);
+                        PlayerJoinQuitListener.restorePlayer(plugin, player);
                         timeoutTask.cancelTimeout(uniqueId);
                         messageUtil.clearDisplay(player);
 

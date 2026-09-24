@@ -116,13 +116,14 @@ public class RegisterCommand implements CommandExecutor {
                             sessionManager.saveSession(uniqueId, ip);
                             player.setInvulnerable(false);
                             PlayerJoinQuitListener.removeAuthEffects(player);
+                            PlayerJoinQuitListener.restorePlayer(plugin, player);
                             timeoutTask.cancelTimeout(uniqueId);
                             messageUtil.clearDisplay(player);
 
                             messageUtil.sendMessage(player, MessageKey.REGISTER_SUCCESS);
                             messageUtil.playSound(player, Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
                         } else {
-                            messageUtil.sendRawMessage(player, "<red>Lỗi lưu trữ tài khoản! Vui lòng liên hệ Admin.</red>");
+                            messageUtil.sendRawMessage(player, "<red>Loi luu tru tai khoan! Vui long lien he Admin.</red>");
                         }
                     });
                 });

@@ -7,6 +7,7 @@ import com.authsystem.plugin.security.PremiumManager;
 import com.authsystem.plugin.security.SessionManager;
 import com.authsystem.plugin.task.AuthTimeoutTask;
 import com.authsystem.plugin.util.MessageUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -56,6 +57,7 @@ public class PlayerJoinQuitListener implements Listener {
 
         player.setInvulnerable(true);
         applyAuthEffects(player);
+        isolatePlayer(plugin, player);
 
         authDao.findByUniqueId(uniqueId).thenAccept(optAccount -> {
             plugin.getServer().getScheduler().runTask(plugin, () -> {
@@ -100,6 +102,7 @@ public class PlayerJoinQuitListener implements Listener {
 
         player.setInvulnerable(false);
         removeAuthEffects(player);
+        restorePlayer(plugin, player);
 
         if (!sessionManager.isLoggedIn(uniqueId)) {
             sessionManager.markLoggedOut(uniqueId, true);
@@ -112,6 +115,7 @@ public class PlayerJoinQuitListener implements Listener {
         sessionManager.saveSession(player.getUniqueId(), ip);
         player.setInvulnerable(false);
         removeAuthEffects(player);
+        restorePlayer(plugin, player);
         timeoutTask.cancelTimeout(player.getUniqueId());
         messageUtil.clearDisplay(player);
 
@@ -129,5 +133,23 @@ public class PlayerJoinQuitListener implements Listener {
     public static void removeAuthEffects(Player player) {
         player.removePotionEffect(PotionEffectType.BLINDNESS);
         player.removePotionEffect(PotionEffectType.SLOWNESS);
+    }
+
+    public static void isolatePlayer(JavaPlugin plugin, Player player) {
+        for (Player other : Bukkit.getOnlinePlayers()) {
+            if (!other.equals(player)) {
+                other.hidePlayer(plugin, player);
+                player.hidePlayer(plugin, other);
+            }
+        }
+    }
+
+    public static void restorePlayer(JavaPlugin plugin, Player player) {
+        for (Player other : Bukkit.getOnlinePlayers()) {
+            if (!other.equals(player)) {
+                other.showPlayer(plugin, player);
+                player.showPlayer(plugin, other);
+            }
+        }
     }
 }
